@@ -4,17 +4,14 @@
     </head>
     <body>
         <div>
-            <h1><a href="">Choi's blog</a></h1>
+            <h1><a href="/">Choi's blog</a></h1>
         </div>
+        {% for post in posts %}
         <div>
-            <p>published: 04.11.2019, 22:25</p>
-            <h2><a href="">My first post</a></h2>
-            <p>I don't like peanut butter.</p>
+            <p>published: {{ post.published_date }}</p>
+            <h1><a href="">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-        <div>
-            <p>published: 04.11.2019, 22:25</p>
-            <h2><a href="">My second post</a></h2>
-            <p>I dislike seafoods.</p>
-        </div>
+        {% endfor %}
     </body>
 </html>
