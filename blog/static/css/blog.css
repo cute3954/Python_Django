@@ -21,9 +21,10 @@ h1, h2, h3, h4 {
 
 .date {
     color: #828282;
+    display: inline;
 }
 
-.save {
+.save, .pu_date {
     float: right;
 }
 
