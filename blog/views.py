@@ -4,6 +4,8 @@ from .models import Post
 from .forms import PostForm
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
+# ログインしたユーザーだけ書き込みを許可する
+from django.contrib.auth.decorators import login_required
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -13,6 +15,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detail.html', {'post':post})
 
+@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -26,18 +29,21 @@ def post_new(request):
     return render(request, 'blog/post_edit.html', {'form':form})
 
 # 一時保存のビュー
+@login_required
 def post_draft_list(request):
     # まだアップされていない書き込みのリストを取得
     posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
     return render(request, 'blog/post_draft_list.html', {'posts':posts})
 
 # 書き込みアップのビュー
+@login_required
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('post_detail', pk=pk)
 
 # 書き込み修正のビュー
+@login_required
 def post_edit(request, pk):
     # 修正したい書き込みのPostモデルのinstanceを呼び出す
     # pkで修正する書き込みを指定する
@@ -56,6 +62,7 @@ def post_edit(request, pk):
     return render(request, 'blog/post_edit.html', {'form':form})
 
 # 書き込み削除のビュー
+@login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()

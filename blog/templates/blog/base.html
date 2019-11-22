@@ -9,9 +9,17 @@
     </head>
     <body>
         <div class="page-header">
+            {# ログイン認証された場合、書き込み、一時保存ボタンを表示する #}
             {% if user.is_authenticated %}
                 <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
                 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+                <p class="top-menu">Hello {{ user.username }}
+                  {# ログアウトしてメイン画面にリダイレクトする #}
+                  <small>(<a href="{% url 'logout' %}?next=/">Logout</a>)</small>
+                </p>
+            {# ログイン認証されなかった場合、ログインボタンを表示する #}
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
             {% endif %}
             <h1><a href="/">Choi's blog</a></h1>
         </div>
