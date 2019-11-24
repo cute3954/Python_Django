@@ -21,4 +21,10 @@ urlpatterns = [
     path(r'^post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     # 書き込み削除
     path(r'^post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
+    # コメント追加
+    path(r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name="add_comment_to_post"),
+    # コメント承認
+    path(r'^comment/(?P<pk>\d+)/approve/$', views.comment_approve, name="comment_approve"),
+    # コメント削除
+    path(r'^comment/(?P<pk>\d+)/remove/$', views.comment_remove, name="comment_remove"),
 ]

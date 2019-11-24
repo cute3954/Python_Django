@@ -19,4 +19,30 @@
         <h1>{{ post.title }}</h1>
         <p>{{ post.text|linebreaksbr }}</p>
     </div>
+    <hr>
+    {# コメント追加ページ #}
+    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+    {# コメントを表示する #}
+    {% for comment in post.comments.all %}
+        {% if user.is_authenticated or comment.approved_comment %}
+        <div class="comment">
+            <strong>{{ comment.author }}</strong>
+            <div class="date">
+                {{ comment.created_date }}
+                {# 管理者がコメントの承認や削除できるボタンを表示する #}
+                {% if not comment.approved_comment %}
+                    <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                {% endif %}
+            </div>
+            <p>{{ comment.text|linebreaksbr }}</p>
+        </div>
+        {% endif %}
+    {% empty %}
+        <p>No comments here yet :(</p>
+    {% endfor %}
 {% endblock %}
