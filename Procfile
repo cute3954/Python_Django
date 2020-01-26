@@ -1,1 +1,1 @@
-web: gunicorn thawing-eyrie-70328.wsgi --log-file -
+web: gunicorn djangoProject.wsgi --log-file -
