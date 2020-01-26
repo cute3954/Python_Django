@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'Dal&mmflj4bwyccw$x@!*h4ah_7q1s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -72,7 +72,6 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# postgresqlの適用
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
